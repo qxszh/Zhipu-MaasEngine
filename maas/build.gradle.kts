@@ -1,35 +1,17 @@
-import java.util.Properties
-
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-val properties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    properties.load(localPropertiesFile.inputStream())
-}
-
 android {
-    namespace = "com.zhipu.ai"
+    namespace = "com.zhipu.ai.maas"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.zhipu.ai"
         minSdk = 23
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "APP_ID", "\"${properties.getProperty("APP_ID", "")}\"")
-        buildConfigField(
-            "String",
-            "APP_CERTIFICATE",
-            "\"${properties.getProperty("APP_CERTIFICATE", "")}\""
-        )
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -48,14 +30,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    viewBinding {
-        enable = true
-    }
-
-    buildFeatures {
-        buildConfig = true
-    }
 }
 
 dependencies {
@@ -66,8 +40,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.easypermissions)
-    implementation(libs.xpopup)
-    implementation(libs.agora.authentication)
 }

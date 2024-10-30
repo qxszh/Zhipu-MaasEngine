@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
             arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA)
         if (EasyPermissions.hasPermissions(this, *permissions)) {
             // 已经获取到权限，执行相应的操作
+            Log.d(TAG, "granted permission")
         } else {
+            Log.i(TAG, "requestPermissions")
             EasyPermissions.requestPermissions(
                 this,
                 "需要录音权限",

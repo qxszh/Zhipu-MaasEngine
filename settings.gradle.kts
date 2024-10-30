@@ -27,4 +27,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Zhipu-MaasEngine"
 include(":app")
- 
+include(":maas")
