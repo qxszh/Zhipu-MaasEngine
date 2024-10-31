@@ -9,11 +9,11 @@ import com.lxj.xpopup.XPopup
 import com.zhipu.ai.BuildConfig
 import com.zhipu.ai.constants.Constants
 import com.zhipu.ai.databinding.ActivityMainBinding
-import com.zhipu.ai.maas.MaasConstants
-import com.zhipu.ai.maas.MaasEngine
-import com.zhipu.ai.maas.MaasEngineEventHandler
+import com.zhipu.ai.maas.MaaSConstants
+import com.zhipu.ai.maas.MaaSEngine
+import com.zhipu.ai.maas.MaaSEngineEventHandler
 import com.zhipu.ai.maas.model.AudioVolumeInfo
-import com.zhipu.ai.maas.model.MaasEngineConfiguration
+import com.zhipu.ai.maas.model.MaaSEngineConfiguration
 import com.zhipu.ai.maas.model.SceneMode
 import com.zhipu.ai.maas.model.VadConfiguration
 import com.zhipu.ai.maas.model.WatermarkOptions
@@ -22,7 +22,7 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import kotlin.system.exitProcess
 
-class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
+class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
     companion object {
         const val TAG: String = Constants.TAG + "-MainActivity"
         const val MY_PERMISSIONS_REQUEST_CODE = 123
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var mMaasEngine: MaasEngine? = null
+    private var mMaaSEngine: MaaSEngine? = null
 
     private var mChannelName = "testAga"
     private var mJoinSuccess = false
@@ -85,8 +85,8 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
     }
 
     private fun initData() {
-        mMaasEngine = MaasEngine.create()
-        val configuration = MaasEngineConfiguration()
+        mMaaSEngine = MaaSEngine.create()
+        val configuration = MaaSEngineConfiguration()
         configuration.context = this
         configuration.eventHandler = this
         configuration.enableConsoleLog = true
@@ -100,10 +100,10 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
         configuration.input = SceneMode("zh-CN", 16000, 1, 16)
         configuration.output = SceneMode("zh-CN", 16000, 1, 16)
         configuration.vadConfiguration = VadConfiguration(500)
-        configuration.noiseEnvironment = MaasConstants.NoiseEnvironment.NOISE
+        configuration.noiseEnvironment = MaaSConstants.NoiseEnvironment.NOISE
         configuration.speechRecognitionCompletenessLevel =
-            MaasConstants.SpeechRecognitionCompletenessLevel.NORMAL
-        var ret = mMaasEngine?.initialize(configuration)
+            MaaSConstants.SpeechRecognitionCompletenessLevel.NORMAL
+        var ret = mMaaSEngine?.initialize(configuration)
         if (ret == 0) {
             Log.d(TAG, "initialize success")
         }
@@ -114,34 +114,34 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
         updateUI()
 
         binding.btnJoin.setOnClickListener {
-            mMaasEngine?.joinChannel(mChannelName)
+            mMaaSEngine?.joinChannel(mChannelName)
         }
 
         binding.btnLeave.setOnClickListener {
-            mMaasEngine?.leaveChannel()
+            mMaaSEngine?.leaveChannel()
         }
 
         binding.btnStartVideo.setOnClickListener {
-            mMaasEngine?.startVideo(
+            mMaaSEngine?.startVideo(
                 binding.localView,
-                MaasConstants.RenderMode.HIDDEN
+                MaaSConstants.RenderMode.HIDDEN
             )
 
-            mMaasEngine?.setVideoEncoderConfiguration(
+            mMaaSEngine?.setVideoEncoderConfiguration(
                 640,
                 480,
-                MaasConstants.FrameRate.FRAME_RATE_FPS_15,
-                MaasConstants.OrientationMode.FIXED_LANDSCAPE,
+                MaaSConstants.FrameRate.FRAME_RATE_FPS_15,
+                MaaSConstants.OrientationMode.FIXED_LANDSCAPE,
                 false
             )
         }
 
         binding.btnStopVideo.setOnClickListener {
-            mMaasEngine?.stopVideo()
+            mMaaSEngine?.stopVideo()
         }
 
         binding.btnSwitchCamera.setOnClickListener {
-            mMaasEngine?.switchCamera()
+            mMaaSEngine?.switchCamera()
         }
 
         binding.btnAddWatermark.setOnClickListener {
@@ -157,26 +157,26 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
                 WatermarkOptions.Rectangle(10, height / 2, size, size)
             watermarkOptions.visibleInPreview = true
 
-            mMaasEngine?.addVideoWatermark(
+            mMaaSEngine?.addVideoWatermark(
                 "/assets/agora-logo.png",
                 watermarkOptions
             )
         }
 
         binding.btnClearWatermark.setOnClickListener {
-            mMaasEngine?.clearVideoWatermarks()
+            mMaaSEngine?.clearVideoWatermarks()
         }
 
         binding.btnEnableAudio.setOnClickListener {
-            mMaasEngine?.enableAudio()
+            mMaaSEngine?.enableAudio()
         }
 
         binding.btnDisableAudio.setOnClickListener {
-            mMaasEngine?.disableAudio()
+            mMaaSEngine?.disableAudio()
         }
 
         binding.btnSendText.setOnClickListener {
-            mMaasEngine?.sendText("hello world!")
+            mMaaSEngine?.sendText("hello world!")
         }
     }
 
@@ -194,8 +194,8 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
     }
 
     private fun exit() {
-        MaasEngine.destroy()
-        mMaasEngine = null
+        MaaSEngine.destroy()
+        mMaaSEngine = null
         finishAffinity()
         finish()
         exitProcess(0)
@@ -229,9 +229,9 @@ class MainActivity : AppCompatActivity(), MaasEngineEventHandler {
     override fun onUserJoined(uid: Int, elapsed: Int) {
         Log.d(TAG, "onUserJoined uid:$uid elapsed:$elapsed")
         runOnUiThread {
-            mMaasEngine?.setupRemoteVideo(
+            mMaaSEngine?.setupRemoteVideo(
                 binding.remoteView,
-                MaasConstants.RenderMode.FIT,
+                MaaSConstants.RenderMode.FIT,
                 uid
             )
         }

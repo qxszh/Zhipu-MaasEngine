@@ -1,14 +1,31 @@
-# MaasEngine 使用指南
+# MaaSEngine 使用指南
 
-`MaasEngine` 是一个抽象类，提供了一系列用于视频和音频处理的接口。本文档将介绍如何使用该类及其方法。
+`MaaSEngine` 是一个抽象类，提供了一系列用于视频和音频处理的接口。本文档将介绍如何使用该类及其方法。
 
-## 初始化 MaasEngine
+## 目录
 
-在使用 `MaasEngine` 之前，需要先创建并初始化一个 `MaasEngine` 实例。
+- [初始化 MaaSEngine](#初始化-maasengine)
+- [加入和离开频道](#加入和离开频道)
+- [视频操作](#视频操作)
+    - [开始和停止视频](#开始和停止视频)
+    - [设置视频编码配置](#设置视频编码配置)
+    - [设置远程视频](#设置远程视频)
+    - [切换摄像头](#切换摄像头)
+    - [添加和清除视频水印](#添加和清除视频水印)
+- [音频操作](#音频操作)
+    - [启用和禁用音频](#启用和禁用音频)
+    - [调整音量](#调整音量)
+- [发送文本消息](#发送文本消息)
+- [获取 SDK 版本](#获取-sdk-版本)
+- [销毁 MaaSEngine 实例](#销毁-maasengine-实例)
+
+## 初始化 MaaSEngine
+
+在使用 `MaaSEngine` 之前，需要先创建并初始化一个 `MaaSEngine` 实例。
 
 ```kotlin
-val maasEngine = MaasEngine.create()
-val configuration = MaasEngineConfiguration(/* 配置参数 */)
+val maasEngine = MaaSEngine.create()
+val configuration = MaaSEngineConfiguration(/* 配置参数 */)
 val result = maasEngine?.initialize(configuration)
 if (result == 0) {
     // 初始化成功
@@ -42,8 +59,8 @@ if (leaveResult == 0) {
 
 ```kotlin
 val view: View? = /* 视频显示的视图 */
-val renderMode: MaasConstants.RenderMode? = /* 渲染模式 */
-val position = MaasConstants.VideoModulePosition.VIDEO_MODULE_POSITION_POST_CAPTURER
+val renderMode: MaaSConstants.RenderMode? = /* 渲染模式 */
+val position = MaaSConstants.VideoModulePosition.VIDEO_MODULE_POSITION_POST_CAPTURER
 
 val startVideoResult = maasEngine?.startVideo(view, renderMode, position)
 if (startVideoResult == 0) {
@@ -65,8 +82,8 @@ if (stopVideoResult == 0) {
 ```kotlin
 val width = 1280
 val height = 720
-val frameRate = MaasConstants.FrameRate.FPS_30
-val orientationMode = MaasConstants.OrientationMode.ORIENTATION_MODE_FIXED_LANDSCAPE
+val frameRate = MaaSConstants.FrameRate.FPS_30
+val orientationMode = MaaSConstants.OrientationMode.ORIENTATION_MODE_FIXED_LANDSCAPE
 val enableMirrorMode = true
 
 val setVideoEncoderConfigResult = maasEngine?.setVideoEncoderConfiguration(
@@ -83,7 +100,7 @@ if (setVideoEncoderConfigResult == 0) {
 
 ```kotlin
 val remoteView: View? = /* 远程视频显示的视图 */
-val remoteRenderMode: MaasConstants.RenderMode? = /* 远程渲染模式 */
+val remoteRenderMode: MaaSConstants.RenderMode? = /* 远程渲染模式 */
 val remoteUid = 12345
 
 val setupRemoteVideoResult = maasEngine?.setupRemoteVideo(remoteView, remoteRenderMode, remoteUid)
@@ -181,12 +198,12 @@ if (sendTextResult == 0) {
 ## 获取 SDK 版本
 
 ```kotlin
-val sdkVersion = MaasEngine.getSdkVersion()
+val sdkVersion = MaaSEngine.getSdkVersion()
 println("SDK Version: $sdkVersion")
 ```
 
-## 销毁 MaasEngine 实例
+## 销毁 MaaSEngine 实例
 
 ```kotlin
-MaasEngine.destroy()
+MaaSEngine.destroy()
 ```

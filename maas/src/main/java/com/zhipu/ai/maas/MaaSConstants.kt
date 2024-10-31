@@ -1,8 +1,8 @@
 package com.zhipu.ai.maas
 
-class MaasConstants {
+class MaaSConstants {
     companion object {
-        const val TAG = "MaasEngine"
+        const val TAG = "MaaSEngine"
 
         const val ERROR_GENERIC = -1
         const val OK = 0

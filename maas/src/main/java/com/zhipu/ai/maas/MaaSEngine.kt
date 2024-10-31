@@ -2,34 +2,34 @@ package com.zhipu.ai.maas
 
 import android.view.View
 import androidx.annotation.Keep
-import com.zhipu.ai.maas.internal.MaasEngineInternal
-import com.zhipu.ai.maas.model.MaasEngineConfiguration
+import com.zhipu.ai.maas.internal.MaaSEngineInternal
+import com.zhipu.ai.maas.model.MaaSEngineConfiguration
 import com.zhipu.ai.maas.model.WatermarkOptions
 import java.nio.ByteBuffer
 
-abstract class MaasEngine {
-    abstract fun initialize(configuration: MaasEngineConfiguration): Int
+abstract class MaaSEngine {
+    abstract fun initialize(configuration: MaaSEngineConfiguration): Int
 
     abstract fun joinChannel(channelId: String): Int
     abstract fun leaveChannel(): Int
     abstract fun startVideo(
         view: View?,
-        renderMode: MaasConstants.RenderMode?,
-        position: MaasConstants.VideoModulePosition = MaasConstants.VideoModulePosition.VIDEO_MODULE_POSITION_POST_CAPTURER
+        renderMode: MaaSConstants.RenderMode?,
+        position: MaaSConstants.VideoModulePosition = MaaSConstants.VideoModulePosition.VIDEO_MODULE_POSITION_POST_CAPTURER
     ): Int
 
     abstract fun stopVideo(): Int
     abstract fun setVideoEncoderConfiguration(
         width: Int,
         height: Int,
-        frameRate: MaasConstants.FrameRate,
-        orientationMode: MaasConstants.OrientationMode,
+        frameRate: MaaSConstants.FrameRate,
+        orientationMode: MaaSConstants.OrientationMode,
         enableMirrorMode: Boolean
     ): Int
 
     abstract fun setupRemoteVideo(
         view: View?,
-        renderMode: MaasConstants.RenderMode?,
+        renderMode: MaaSConstants.RenderMode?,
         remoteUid: Int
     ): Int
 
@@ -61,14 +61,14 @@ abstract class MaasEngine {
 
     companion object {
         @JvmStatic
-        private var mInstance: MaasEngine? = null
+        private var mInstance: MaaSEngine? = null
 
         @JvmStatic
         @Synchronized
         @Keep
-        fun create(): MaasEngine? {
+        fun create(): MaaSEngine? {
             if (mInstance == null) {
-                mInstance = MaasEngineInternal()
+                mInstance = MaaSEngineInternal()
             }
             return mInstance
         }

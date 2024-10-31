@@ -1,7 +1,7 @@
 package com.zhipu.ai.constants
 
 object Constants {
-    const val TAG = "MaasEngineDemo"
-    const val LOG_FILE_NAME = "zhipu.MaasEngineDemo"
+    const val TAG = "MaaSEngineDemo"
+    const val LOG_FILE_NAME = "zhipu.MaaSEngineDemo"
 
 }

@@ -1,12 +1,12 @@
 package com.zhipu.ai.maas.model
 
 import android.content.Context
-import com.zhipu.ai.maas.MaasConstants
-import com.zhipu.ai.maas.MaasEngineEventHandler
+import com.zhipu.ai.maas.MaaSConstants
+import com.zhipu.ai.maas.MaaSEngineEventHandler
 
-class MaasEngineConfiguration(
+class MaaSEngineConfiguration(
     var context: Context?,
-    var eventHandler: MaasEngineEventHandler?,
+    var eventHandler: MaaSEngineEventHandler?,
     var enableConsoleLog: Boolean,
     var enableSaveLogToFile: Boolean,
     var appId: String,
@@ -18,8 +18,8 @@ class MaasEngineConfiguration(
     var input: SceneMode,
     var output: SceneMode,
     var vadConfiguration: VadConfiguration,
-    var noiseEnvironment: MaasConstants.NoiseEnvironment = MaasConstants.NoiseEnvironment.NOISE,
-    var speechRecognitionCompletenessLevel: MaasConstants.SpeechRecognitionCompletenessLevel = MaasConstants.SpeechRecognitionCompletenessLevel.NORMAL
+    var noiseEnvironment: MaaSConstants.NoiseEnvironment = MaaSConstants.NoiseEnvironment.NOISE,
+    var speechRecognitionCompletenessLevel: MaaSConstants.SpeechRecognitionCompletenessLevel = MaaSConstants.SpeechRecognitionCompletenessLevel.NORMAL
 ) {
     constructor() : this(
         context = null,
