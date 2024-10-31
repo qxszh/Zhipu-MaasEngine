@@ -30,6 +30,7 @@ class MaasEngineInternal : MaasEngine() {
             Log.e(MaasConstants.TAG, "initialize error: already initialized")
             return MaasConstants.ERROR_INVALID_PARAMS
         }
+        Log.d(MaasConstants.TAG, "maas version:" + getSdkVersion())
         mMaasEngineConfiguration = configuration
         mEventCallback = configuration.eventHandler
         try {

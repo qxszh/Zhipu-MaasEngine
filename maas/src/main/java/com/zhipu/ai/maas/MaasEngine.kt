@@ -47,9 +47,9 @@ abstract class MaasEngine {
 
     abstract fun clearVideoWatermarks(): Int
 
-    abstract  fun enableAudio(): Int
+    abstract fun enableAudio(): Int
 
-    abstract  fun disableAudio(): Int
+    abstract fun disableAudio(): Int
 
     abstract fun adjustPlaybackSignalVolume(volume: Int): Int
 
@@ -79,6 +79,13 @@ abstract class MaasEngine {
         fun destroy() {
             mInstance?.doDestroy()
             mInstance = null
+        }
+
+        @JvmStatic
+        @Synchronized
+        @Keep
+        fun getSdkVersion(): String {
+            return BuildConfig.VERSION_NAME
         }
     }
 }
