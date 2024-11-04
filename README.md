@@ -125,21 +125,36 @@ if (switchCameraResult == 0) {
 ### 添加和清除视频水印
 
 ```kotlin
-val watermarkUrl = "https://example.com/watermark.png"
-val watermarkOptions = WatermarkOptions(/* 配置参数 */)
+val watermarkOptions = WatermarkOptions()
+val width = 200
+val height = 200
+watermarkOptions.positionInPortraitMode =
+  WatermarkOptions.Rectangle(0, 0, width, height)
+watermarkOptions.positionInLandscapeMode =
+  WatermarkOptions.Rectangle(0, 0, width, height)
+watermarkOptions.visibleInPreview = true
 
-val addWatermarkResult = maasEngine?.addVideoWatermark(watermarkUrl, watermarkOptions)
+val rootView = window.decorView.rootView
+val screenBuffer = captureScreenToByteBuffer(rootView)
+
+mMaaSEngine?.addVideoWatermark(
+  screenBuffer,
+  rootView.width,
+  rootView.height,
+  MaaSConstants.VideoFormat.VIDEO_PIXEL_RGBA,
+  watermarkOptions
+)
 if (addWatermarkResult == 0) {
-    // 添加水印成功
+  // 添加水印成功
 } else {
-    // 添加水印失败
+  // 添加水印失败
 }
 
 val clearWatermarksResult = maasEngine?.clearVideoWatermarks()
 if (clearWatermarksResult == 0) {
-    // 清除水印成功
+  // 清除水印成功
 } else {
-    // 清除水印失败
+  // 清除水印失败
 }
 ```
 

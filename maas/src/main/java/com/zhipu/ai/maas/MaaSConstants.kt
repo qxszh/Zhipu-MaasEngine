@@ -119,4 +119,23 @@ class MaaSConstants {
             }
         }
     }
+
+    enum class VideoFormat(val value: Int) {
+        VIDEO_PIXEL_I420(1),
+        VIDEO_PIXEL_BGRA(2),
+        VIDEO_PIXEL_NV21(3),
+        VIDEO_PIXEL_RGBA(4);
+
+        companion object {
+            fun getVideoFormat(format: Int): VideoFormat? {
+                for (videoFormat in VideoFormat.entries) {
+                    if (videoFormat.value == format) {
+                        return videoFormat
+                    }
+                }
+                return null
+            }
+        }
+    }
+
 }

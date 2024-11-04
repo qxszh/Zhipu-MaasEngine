@@ -41,7 +41,7 @@ abstract class MaaSEngine {
         data: ByteBuffer,
         width: Int,
         height: Int,
-        format: Int,
+        format: MaaSConstants.VideoFormat,
         options: WatermarkOptions
     ): Int
 

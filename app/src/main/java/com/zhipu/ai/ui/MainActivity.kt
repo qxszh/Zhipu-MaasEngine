@@ -1,8 +1,10 @@
 package com.zhipu.ai.ui
 
 import android.Manifest
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.lxj.xpopup.XPopup
@@ -20,6 +22,7 @@ import com.zhipu.ai.maas.model.WatermarkOptions
 import com.zhipu.ai.utils.KeyCenter
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import java.nio.ByteBuffer
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
@@ -145,20 +148,28 @@ class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
         }
 
         binding.btnAddWatermark.setOnClickListener {
-            val watermarkOptions: WatermarkOptions =
-                WatermarkOptions()
-            val size: Int =
-                640 / 6
-            val height: Int =
-                480
+            val watermarkOptions = WatermarkOptions()
+            val width = 200
+            val height = 200
             watermarkOptions.positionInPortraitMode =
-                WatermarkOptions.Rectangle(10, height / 2, size, size)
+                WatermarkOptions.Rectangle(0, 0, width, height)
             watermarkOptions.positionInLandscapeMode =
-                WatermarkOptions.Rectangle(10, height / 2, size, size)
+                WatermarkOptions.Rectangle(0, 0, width, height)
             watermarkOptions.visibleInPreview = true
 
+//            mMaaSEngine?.addVideoWatermark(
+//                "/assets/agora-logo.png",
+//                watermarkOptions
+//            )
+
+            val rootView = window.decorView.rootView
+            val screenBuffer = captureScreenToByteBuffer(rootView)
+
             mMaaSEngine?.addVideoWatermark(
-                "/assets/agora-logo.png",
+                screenBuffer,
+                rootView.width,
+                rootView.height,
+                MaaSConstants.VideoFormat.VIDEO_PIXEL_RGBA,
                 watermarkOptions
             )
         }
@@ -247,5 +258,30 @@ class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
 
     override fun onStreamMessage(uid: Int, data: ByteArray?) {
         Log.d(TAG, "onStreamMessage uid:$uid data:${String(data!!, Charsets.UTF_8)}")
+    }
+
+    private fun captureScreenToByteBuffer(view: View): ByteBuffer {
+        // 创建一个与视图大小相同的 Bitmap
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+
+        // 将视图绘制到 Bitmap
+        view.draw(android.graphics.Canvas(bitmap))
+
+        // 计算需要的字节数
+        val bytes = bitmap.byteCount
+
+        // 创建一个直接分配的 ByteBuffer
+        val buffer = ByteBuffer.allocateDirect(bytes)
+
+        // 将 Bitmap 像素复制到 ByteBuffer
+        bitmap.copyPixelsToBuffer(buffer)
+
+        // 重置 buffer 位置
+        buffer.rewind()
+
+        // 回收 Bitmap 以释放内存
+        bitmap.recycle()
+
+        return buffer
     }
 }

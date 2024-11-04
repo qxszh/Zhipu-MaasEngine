@@ -115,7 +115,7 @@ class MaaSEngineInternal : MaaSEngine() {
                 16000,
                 1,
                 Constants.RAW_AUDIO_FRAME_OP_MODE_READ_ONLY,
-                640
+                320
             )
 
             Log.d(
@@ -354,6 +354,10 @@ class MaaSEngineInternal : MaaSEngine() {
             watermarkUrl,
             Utils.getRtcWatermarkOptions(watermarkOptions)
         )
+        Log.d(
+            MaaSConstants.TAG,
+            "addVideoWatermark ret:$ret"
+        )
         return if (ret == 0) {
             MaaSConstants.OK
         } else {
@@ -365,7 +369,7 @@ class MaaSEngineInternal : MaaSEngine() {
         data: ByteBuffer,
         width: Int,
         height: Int,
-        format: Int,
+        format: MaaSConstants.VideoFormat,
         options: WatermarkOptions
     ): Int {
         Log.d(
@@ -381,8 +385,12 @@ class MaaSEngineInternal : MaaSEngine() {
             data,
             width,
             height,
-            format,
+            format.value,
             Utils.getRtcWatermarkOptions(options)
+        )
+        Log.d(
+            MaaSConstants.TAG,
+            "addVideoWatermark ret:$ret"
         )
         return if (ret == 0) {
             MaaSConstants.OK
