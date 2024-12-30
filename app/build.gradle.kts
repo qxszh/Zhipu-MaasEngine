@@ -1,15 +1,32 @@
-import java.util.Properties
+import org.gradle.api.JavaVersion.VERSION_11
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-val properties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    properties.load(localPropertiesFile.inputStream())
+// 定义一个函数来读取 local.properties 文件并返回一个 Map<String, String>
+fun readProperties(file: File): Map<String, String> {
+    val properties = mutableMapOf<String, String>()
+    if (file.exists()) {
+        file.useLines { lines ->
+            lines.forEach { line ->
+                if (line.isNotBlank() && !line.startsWith("#")) {
+                    val (key, value) = line.split("=", limit = 2).map { it.trim() }
+                    properties[key] = value
+                }
+            }
+        }
+    } else {
+        println("local.properties file not found at: ${file.absolutePath}")
+    }
+    return properties
 }
+
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = readProperties(localPropertiesFile)
+
+println("Loading properties from: ${localPropertiesFile.absolutePath}")
 
 android {
     namespace = "com.zhipu.ai"
@@ -21,15 +38,11 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "APP_ID", "\"${properties.getProperty("APP_ID", "")}\"")
-        buildConfigField(
-            "String",
-            "APP_CERTIFICATE",
-            "\"${properties.getProperty("APP_CERTIFICATE", "")}\""
-        )
+        buildConfigField("String", "APP_ID", "\"${localProperties["APP_ID"] ?: ""}\"")
+        buildConfigField("String", "APP_CERTIFICATE", "\"${localProperties["APP_CERTIFICATE"] ?: ""}\"")
+        buildConfigField("String", "REMOTE_TOKEN_URL", "\"${localProperties["REMOTE_TOKEN_URL"] ?: ""}\"")
+        buildConfigField("String", "REMOTE_AUTH_TOKEN", "\"${localProperties["REMOTE_AUTH_TOKEN"] ?: ""}\"")
     }
 
     buildTypes {
@@ -42,11 +55,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = VERSION_11
+        targetCompatibility = VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     viewBinding {
@@ -65,11 +78,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(project(":maas"))
-
+    implementation(libs.commons.codec)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
     implementation(libs.easypermissions)
     implementation(libs.xpopup)
     implementation(libs.agora.authentication)
-    implementation(libs.commons.codec)
 }

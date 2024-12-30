@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.lxj.xpopup.XPopup
 import com.zhipu.ai.BuildConfig
@@ -19,7 +21,7 @@ import com.zhipu.ai.maas.model.MaaSEngineConfiguration
 import com.zhipu.ai.maas.model.SceneMode
 import com.zhipu.ai.maas.model.VadConfiguration
 import com.zhipu.ai.maas.model.WatermarkOptions
-import com.zhipu.ai.utils.KeyCenter
+import com.zhipu.ai.utils.KeyCenterRemote
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.nio.ByteBuffer
@@ -34,9 +36,8 @@ class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
     private lateinit var binding: ActivityMainBinding
 
     private var mMaaSEngine: MaaSEngine? = null
-
-    private var mChannelName = "testAga"
     private var mJoinSuccess = false
+    private var mConfiguration: MaaSEngineConfiguration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,8 +96,9 @@ class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
         configuration.enableConsoleLog = true
         configuration.enableSaveLogToFile = true
         configuration.appId = BuildConfig.APP_ID
-        configuration.userId = KeyCenter.getUid()
-        configuration.rtcToken = KeyCenter.getRtcToken(mChannelName, KeyCenter.getUid())
+        configuration.userId = -1
+        configuration.channelId = ""
+        configuration.rtcToken = ""
         configuration.enableMultiTurnShortTermMemory = true
         configuration.userName = "test"
         configuration.agentVoiceName = "xiaoyan"
@@ -110,14 +112,45 @@ class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
         if (ret == 0) {
             Log.d(TAG, "initialize success")
         }
+        mConfiguration = configuration
     }
 
     private fun initView() {
         handleOnBackPressed()
         updateUI()
-
         binding.btnJoin.setOnClickListener {
-            mMaaSEngine?.joinChannel(mChannelName)
+            XPopup.Builder(this).asCenterList(
+                "请选择模型",
+                arrayOf("glm-4-rtc-voice-voice01", "glm-4-rtc-video-video01", "glm-4-rtc-voice-voice02"),
+                null,
+                1
+            ) { position, text ->
+                var modelToUse: String = text
+                Toast.makeText(this, "选择 $text 模型", Toast.LENGTH_SHORT).show()
+                mConfiguration?.let { configuration ->
+                    // 开始获取 RTC 数据
+                    KeyCenterRemote.getRtcData(modelToUse) { result ->
+                        when (result) {
+                            is KeyCenterRemote.Result.Success -> {
+                                // 设置成功获取到的 RTC 数据
+                                configuration.userId = result.userId
+                                configuration.channelId = result.channelId
+                                configuration.rtcToken = result.token
+                                // 成功后尝试加入频道
+                                mMaaSEngine?.joinChannel(configuration.channelId)
+                                // 启用音频
+                                mMaaSEngine?.enableAudio()
+                            }
+
+                            is KeyCenterRemote.Result.Failure -> {
+                                AlertDialog.Builder(this).setTitle("获取 RTC 数据失败")
+                                    .setMessage("无法获取 RTC 数据，请重试。\n错误信息: ${result.errorMessage}")
+                                    .setPositiveButton("确定", null).show()
+                            }
+                        }
+                    }
+                }
+            }.show()
         }
 
         binding.btnLeave.setOnClickListener {
