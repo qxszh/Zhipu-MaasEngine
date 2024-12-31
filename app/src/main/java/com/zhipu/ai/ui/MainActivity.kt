@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), MaaSEngineEventHandler {
         binding.btnJoin.setOnClickListener {
             XPopup.Builder(this).asCenterList(
                 "请选择模型",
-                arrayOf("glm-4-rtc-voice-voice01", "glm-4-rtc-video-video01", "glm-4-rtc-voice-voice02"),
+                arrayOf("glm-4-rtc-voice", "glm-4-rtc-video", "glm-4-rtc-voice-voice01", "glm-4-rtc-video-video01", "glm-4-rtc-voice-voice02"),
                 null,
                 1
             ) { position, text ->
