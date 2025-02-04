@@ -1,13 +1,21 @@
 <resources>
-    <string name="app_name">Zhipu-MaaSEngine</string>
-    <string name="join">Join</string>
-    <string name="leave">Leave</string>
-    <string name="start_video">Start Video</string>
-    <string name="stop_video">Stop Video</string>
-    <string name="switch_camera">Switch Camera</string>
-    <string name="add_watermark">Add Watermark</string>
-    <string name="clear_watermark">Clear Watermark</string>
-    <string name="enable_audio">Enable Audio</string>
-    <string name="disable_audio">Disable Audio</string>
-    <string name="send_text">Send Text</string>
+    <string name="app_name">实时音视频智能语音调试工作台</string>
+    <string name="join">加入房间</string>
+    <string name="leave">离开房间</string>
+    <string name="set_token">设置密钥</string>
+    <string name="start_video">开启视频</string>
+    <string name="stop_video">禁用视频</string>
+    <string name="switch_camera">切换镜头</string>
+    <string name="add_watermark">增加水印</string>
+    <string name="clear_watermark">去除水印</string>
+    <string name="enable_audio">开启麦克</string>
+    <string name="disable_audio">关闭麦克</string>
+    <string name="send_text">发送数据</string>
+    <string name="system_prompt">改提示词</string>
+    <string name="enable_ains">开启降噪</string>
+    <string name="disable_ains">关闭降噪</string>
+    <string name="popup_system_prompt_title">自定义系统提示词</string>
+    <string name="popup_system_prompt_input">在此输入系统提示词</string>
+    <string name="popup_system_prompt_comment">在输入框输入系统提示词后，点击保存按钮，会覆盖原有系统提示词。重新加入房间有效。</string>
+    <string name="popup_system_prompt_submit">保存系统提示词</string>
 </resources>

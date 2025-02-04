@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textSize="16sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/btn_join"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/join"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <Button
+        android:id="@+id/btn_leave"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/leave"
+        app:layout_constraintStart_toEndOf="@id/btn_join"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <Button
+        android:id="@+id/btn_set_token"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/set_token"
+        app:layout_constraintStart_toEndOf="@id/btn_leave"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <SurfaceView
+        android:id="@+id/local_view"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toStartOf="@id/remote_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_join"
+        app:layout_constraintWidth_percent="0.49" />
+
+    <SurfaceView
+        android:id="@+id/remote_view"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/local_view"
+        app:layout_constraintTop_toBottomOf="@id/btn_join"
+        app:layout_constraintWidth_percent="0.49" />
+
+    <Button
+        android:id="@+id/btn_start_video"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/start_video"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/local_view" />
+
+    <Button
+        android:id="@+id/btn_stop_video"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/stop_video"
+        app:layout_constraintStart_toEndOf="@id/btn_start_video"
+        app:layout_constraintTop_toBottomOf="@id/local_view" />
+
+    <Button
+        android:id="@+id/btn_switch_camera"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/switch_camera"
+        app:layout_constraintStart_toEndOf="@id/btn_stop_video"
+        app:layout_constraintTop_toBottomOf="@id/local_view" />
+
+    <Button
+        android:id="@+id/btn_add_watermark"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/add_watermark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_start_video" />
+
+    <Button
+        android:id="@+id/btn_clear_watermark"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/clear_watermark"
+        app:layout_constraintStart_toEndOf="@id/btn_add_watermark"
+        app:layout_constraintTop_toBottomOf="@id/btn_start_video" />
+
+
+    <Button
+        android:id="@+id/btn_send_text"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/send_text"
+        app:layout_constraintStart_toEndOf="@id/btn_clear_watermark"
+        app:layout_constraintTop_toBottomOf="@id/btn_start_video" />
+
+    <Button
+        android:id="@+id/btn_system_prompt"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/system_prompt"
+        app:layout_constraintStart_toEndOf="@id/btn_send_text"
+        app:layout_constraintTop_toBottomOf="@id/btn_start_video" />
+
+    <Button
+        android:id="@+id/btn_enable_audio"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/enable_audio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_watermark" />
+
+    <Button
+        android:id="@+id/btn_disable_audio"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/disable_audio"
+        app:layout_constraintStart_toEndOf="@id/btn_enable_audio"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_watermark" />
+
+    <Button
+        android:id="@+id/btn_enable_ains"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/enable_ains"
+        app:layout_constraintStart_toEndOf="@id/btn_disable_audio"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_watermark" />
+
+    <Button
+        android:id="@+id/btn_disable_ains"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/disable_ains"
+        app:layout_constraintStart_toEndOf="@+id/btn_enable_ains"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_watermark" />
+
+    <SurfaceView
+        android:id="@+id/event_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_enable_ains"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

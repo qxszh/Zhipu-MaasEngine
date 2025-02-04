@@ -1,0 +1,26 @@
+<resources>
+    <!-- 主要颜色调色板 -->
+    <color name="colorPrimary">#2E7D32</color>
+    <color name="colorPrimaryVariant">#255D27</color>
+    <color name="colorOnPrimary">#FAFAFA</color>
+
+    <!-- 次要颜色调色板 -->
+    <color name="colorSecondary">#388E3C</color>
+    <color name="colorSecondaryVariant">#2E7D32</color>
+    <color name="colorOnSecondary">#212121</color>
+
+    <!-- 强调色 -->
+    <color name="colorAccent">#2E7D32</color>
+
+    <!-- 按钮颜色 -->
+    <color name="button_text_color">#FAFAFA</color>
+    <color name="button_disabled_text_color">#A5D6A7</color>
+    <color name="button_background_color">#388E3C</color>
+    <color name="button_disabled_background_color">#66A260</color>
+
+    <!-- 背景颜色 -->
+    <color name="background">#303030</color>
+
+    <!-- 状态栏颜色 -->
+    <color name="statusBarColor">#154B1B</color>
+</resources>

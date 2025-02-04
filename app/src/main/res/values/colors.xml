@@ -1,10 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- 主要颜色调色板 -->
+    <color name="colorPrimary">#388E3C</color>
+    <color name="colorPrimaryVariant">#2E7D32</color>
+    <color name="colorOnPrimary">#FAFAFA</color>
+
+    <!-- 次要颜色调色板 -->
+    <color name="colorSecondary">#4CAF50</color>
+    <color name="colorSecondaryVariant">#388E3C</color>
+    <color name="colorOnSecondary">#212121</color>
+
+    <!-- 强调色 -->
+    <color name="colorAccent">#388E3C</color>
+
+    <!-- 按钮颜色 -->
+    <color name="button_text_color">#FAFAFA</color>
+    <color name="button_disabled_text_color">#A5D6A7</color>
+    <color name="button_background_color">#4CAF50</color>
+    <color name="button_disabled_background_color">#81C784</color>
+
+    <!-- 背景颜色 -->
+    <color name="background">#CCCCCC</color>
+
+    <!-- 状态栏颜色 -->
+    <color name="statusBarColor">#1B5E20</color>
 </resources>

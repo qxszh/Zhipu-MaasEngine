@@ -1,0 +1,12 @@
+<resources>
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:elevation">0dp</item>
+        <!-- Define disabled text color -->
+        <item name="android:textColorLink">@color/button_disabled_text_color</item>
+        <!-- 或者分别指定不同的边距值 -->
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+</resources>

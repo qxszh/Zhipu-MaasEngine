@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# 保持com.lxj.xpopup.widget包下的所有类及其成员不被混淆
+-keep class com.lxj.xpopup.widget.** { *; }
+# 忽略关于com.lxj.xpopup.widget包下的所有警告
+-dontwarn com.lxj.xpopup.widget.**
